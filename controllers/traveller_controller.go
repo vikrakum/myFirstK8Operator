@@ -78,10 +78,17 @@ func (r *TravellerReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 				deployment.Spec.Replicas = &replicas
 				err := r.Update(ctx, deployment)
 				if err != nil {
+					traveller.Status.Status = v1alpha1.FAILED
 					return ctrl.Result{}, nil
+				}
+				traveller.Status.Status = v1alpha1.SUCCESS
+				err := r.Status().update(ctx, traveller)
+				if err != nil {
+					return err
 				}
 			}
 		}
+		log.Log.Info("Deployment", deployment)
 	}
 
 	return ctrl.Result{RequeueAfter: time.Duration(30 * time.Second)}, nil
