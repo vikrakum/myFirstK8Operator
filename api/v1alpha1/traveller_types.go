@@ -23,6 +23,11 @@ import (
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
 // NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
 
+const (
+	SUCCESS = "success"
+	FAILED  = "failed"
+)
+
 // TravellerSpec defines the desired state of Traveller
 type TravellerSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
@@ -44,6 +49,7 @@ type DeploymentType struct {
 type TravellerStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
+	Status string `json:"status,omitempty`
 }
 
 //+kubebuilder:object:root=true
